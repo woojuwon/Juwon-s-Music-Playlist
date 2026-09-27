@@ -6,61 +6,73 @@
     <title>Juwon's Music Player 🌸</title>
     <style>
         :root {
-            --bg-color: #fce4ec;
+            --bg-color: #fdf2f8;
             --card-bg: #ffffff;
-            --primary-color: #f48fb1;
-            --text-color: #6d4c41;
-            --shadow: 0 10px 25px rgba(244, 143, 177, 0.25);
+            --primary-color: #f472b6;
+            --secondary-color: #a78bfa;
+            --text-color: #4a4063;
+            --shadow: 0 20px 40px rgba(244, 114, 182, 0.2);
         }
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: var(--bg-color);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
+            box-sizing: border-box;
             color: var(--text-color);
         }
 
         .player-card {
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 30px;
+            padding: 40px;
+            border-radius: 36px;
             box-shadow: var(--shadow);
-            text-align: center;
-            width: 320px;
+            width: 100%;
+            max-width: 800px;
+            border: 2px solid #ffd1dc;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Kiri & Kanan Sama Besar */
+            gap: 40px;
+            align-items: center;
+            box-sizing: border-box;
+        }
+
+        /* Bahagian Kiri: Vinyl */
+        .left-side {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
 
-        /* Vinyl Record Style */
         .vinyl-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin-bottom: 25px;
+            width: 260px;
+            height: 260px;
         }
 
         .vinyl {
             width: 100%;
             height: 100%;
-            background: #212121;
+            background: #1f1f1f;
             border-radius: 50%;
             position: relative;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
             display: flex;
             justify-content: center;
             align-items: center;
             animation: spin 4s linear infinite;
-            animation-play-state: paused; /* Berhenti kalau tak play */
+            animation-play-state: paused;
             background-image: 
-                radial-gradient(circle, transparent 35%, #2c2c2c 36%, #2c2c2c 38%, transparent 39%),
-                radial-gradient(circle, transparent 55%, #2c2c2c 56%, #2c2c2c 58%, transparent 59%),
-                radial-gradient(circle, transparent 75%, #2c2c2c 76%, #2c2c2c 78%, transparent 79%);
+                radial-gradient(circle, transparent 32%, #2c2c2c 33%, #2c2c2c 35%, transparent 36%),
+                radial-gradient(circle, transparent 50%, #2c2c2c 51%, #2c2c2c 53%, transparent 54%),
+                radial-gradient(circle, transparent 68%, #2c2c2c 69%, #2c2c2c 71%, transparent 72%),
+                radial-gradient(circle, transparent 85%, #2c2c2c 86%, #2c2c2c 88%, transparent 89%);
         }
 
         .vinyl.playing {
@@ -68,12 +80,12 @@
         }
 
         .vinyl-center {
-            width: 70px;
-            height: 70px;
-            background: var(--primary-color);
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             border-radius: 50%;
             border: 4px solid #fff;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
         }
 
         @keyframes spin {
@@ -81,98 +93,164 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Song Info */
+        /* Bahagian Kanan: Info, Visualizer & Lirik */
+        .right-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
         .song-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 5px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #6b46c1;
+            margin-bottom: 4px;
         }
 
         .song-artist {
-            font-size: 0.9rem;
-            color: #b0bec5;
+            font-size: 1rem;
+            color: #9ca3af;
             margin-bottom: 20px;
         }
 
-        /* Audio Visualizer (Waveform bars) */
+        /* Audio Visualizer */
         .visualizer {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: flex-end;
-            gap: 4px;
-            height: 35px;
-            margin-bottom: 25px;
+            gap: 6px;
+            height: 40px;
+            margin-bottom: 20px;
             width: 100%;
         }
 
         .bar {
-            width: 6px;
-            background-color: var(--primary-color);
-            border-radius: 3px;
-            height: 5px; /* Default rendah */
-            transition: height 0.1s ease;
+            width: 8px;
+            background: linear-gradient(to top, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            height: 6px;
+            transition: height 0.08s ease;
+        }
+
+        /* Kotak Lirik Estetik */
+        .lyrics-container {
+            background-color: #faf5ff;
+            border: 2px solid #f3e8ff;
+            border-radius: 20px;
+            padding: 18px;
+            width: 100%;
+            height: 150px;
+            overflow-y: auto;
+            box-sizing: border-box;
+            margin-bottom: 24px;
+        }
+
+        .lyrics-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #5b4b7c;
+            font-style: italic;
+            margin: 0;
         }
 
         /* Controls */
         .controls {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             width: 100%;
         }
 
         button {
             flex: 1;
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 15px;
+            padding: 14px;
+            border-radius: 16px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(244, 143, 177, 0.4);
-            transition: transform 0.1s, background-color 0.2s;
+            box-shadow: 0 4px 12px rgba(244, 114, 182, 0.4);
+            transition: transform 0.1s, opacity 0.2s;
         }
 
         button:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         button:hover {
-            background-color: #ec407a;
+            opacity: 0.9;
+        }
+
+        /* Responsif untuk Phone kecil */
+        @media (max-width: 768px) {
+            .player-card {
+                grid-template-columns: 1fr;
+                padding: 24px;
+                gap: 20px;
+                text-align: center;
+            }
+            .right-side {
+                text-align: center;
+            }
+            .visualizer {
+                justify-content: center;
+            }
+            .vinyl-container {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="player-card">
-        <!-- Vinyl Record Graphic -->
-        <div class="vinyl-container">
-            <div class="vinyl" id="vinylRecord">
-                <div class="vinyl-center"></div>
+        <!-- SEBELAH KIRI: Vinyl Besar -->
+        <div class="left-side">
+            <div class="vinyl-container">
+                <div class="vinyl" id="vinylRecord">
+                    <div class="vinyl-center"></div>
+                </div>
             </div>
         </div>
 
-        <div class="song-title">Sampai Akhir</div>
-        <div class="song-artist">Juwon's Playlist 🌸</div>
+        <!-- SEBELAH KANAN: Info, Beat & Lirik -->
+        <div class="right-side">
+            <div class="song-title">Sampai Akhir</div>
+            <div class="song-artist">Judika & Duma 🌸</div>
 
-        <!-- Visualizer Bars -->
-        <div class="visualizer" id="visualizer">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
+            <!-- Visualizer Beat Music -->
+            <div class="visualizer" id="visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
 
-        <!-- Controls & Audio Element -->
-        <audio id="audioPlayer" src="sampai-akhir.mp3"></audio>
-        
-        <div class="controls">
-            <button id="playBtn">Play 🎵</button>
-            <button id="pauseBtn">Pause ⏸️</button>
+            <!-- Ruangan Lirik -->
+            <div class="lyrics-container">
+                <p class="lyrics-text" id="lyricsDisplay">
+                    "Cinta kita melukiskan sejarah...<br>
+                    Membawa kita ke gerbang bahagia...<br>
+                    Janji ku 'tuk setia bersamamu,<br>
+                    Sampai akhir menutup mata..." ✨
+                </p>
+            </div>
+
+            <!-- Audio Element -->
+            <audio id="audioPlayer" src="sampai-akhir.mp3"></audio>
+            
+            <!-- Butang Kawalan -->
+            <div class="controls">
+                <button id="playBtn">Play 🎵</button>
+                <button id="pauseBtn">Pause ⏸️</button>
+            </div>
         </div>
     </div>
 
@@ -224,22 +302,19 @@
                 if (analyser) {
                     analyser.getByteFrequencyData(dataArray);
                     bars.forEach((bar, index) => {
-                        // Ambil nilai frequency untuk kawal tinggi bar
-                        let value = dataArray[index * 2] || 5;
-                        let height = (value / 255) * 35 + 5; // Tinggi maksimum bar
+                        let value = dataArray[index * 2] || 8;
+                        let height = (value / 255) * 35 + 6;
                         bar.style.height = height + 'px';
                     });
                 } else {
-                    // Fallback animation kalau browser sekat audio context
                     bars.forEach(bar => {
-                        let randomHeight = Math.floor(Math.random() * 30) + 5;
+                        let randomHeight = Math.floor(Math.random() * 30) + 6;
                         bar.style.height = randomHeight + 'px';
                     });
                 }
             } else {
-                // Reset bar bila pause
                 bars.forEach(bar => {
-                    bar.style.height = '5px';
+                    bar.style.height = '6px';
                 });
             }
         }
